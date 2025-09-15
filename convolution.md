@@ -259,23 +259,34 @@ $$
 $$
 \begin{align*}
 f(t)&=\begin{cases}
+    f_1(t)&a_1<t<a_2\\
+    f_2(t)&a_2<t<a_3\\
+    f_2(t)&a_3<t<a_4\\
+\end{cases}=\begin{cases}
     0&-\infin<t<0\\
     1&0<t<1\\
     0&1<t<\infin\\
 \end{cases}
 \\
 g(t)&=\begin{cases}
+    g_1(t)&b_1<t<b_2\\
+    g_2(t)&b_2<t<b_3\\
+    g_3(t)&b_3<t<b_4\\
+\end{cases}=\begin{cases}
     0&-\infin<t<0\\
     t&0<t<1\\
     0&1<t<\infin\\
 \end{cases}
 \\
 g(-\tau+t)&=\begin{cases}
+    g_1(-\tau+t)&t - b_2<\tau<t - b_1\\
+    g_2(-\tau+t)&t-b_3<\tau<t+b_2\\
+    g_3(-\tau+t)&t-b_4<\tau<t+b_3\\
+\end{cases}=\begin{cases}
     0&t<\tau<\infin\\
     -\tau+t&t-1<\tau<t\\
     0&-\infin<\tau<t-1\\
 \end{cases}
-
 \end{align*}
 $$
 ## Boundraries
@@ -382,12 +393,100 @@ F(t)&=f(t)*g(t)\\
 \end{align*}
 $$
 
+# Example 2
+## $f(t)$ and $g(t)$
+$$
+\begin{align*}
+f(t)&=\begin{cases}
+    f_1(t)&a_1<t<a_2\\
+\end{cases}=\begin{cases}
+    \sin t&-\infin<t<\infin\\
+\end{cases}
+\\
+g(t)&=\begin{cases}
+    g_1(t)&b_1<t<b_2\\
+    g_2(t)&b_2<t<b_3\\
+    g_3(t)&b_3<t<b_4\\
+\end{cases}=\begin{cases}
+    0&-\infin<t<0\\
+    t&0<t<1\\
+    0&1<t<\infin\\
+\end{cases}
+\\
+g(-\tau+t)&=\begin{cases}
+    g_1(-\tau+t)&t - b_2<\tau<t - b_1\\
+    g_2(-\tau+t)&t - b_3<\tau<t - b_2\\
+    g_3(-\tau+t)&t - b_4<\tau<t - b_3\\
+\end{cases}=\begin{cases}
+    0&t<\tau<\infin\\
+    -\tau+t&t-1<\tau<t\\
+    0&-\infin<\tau<t-1\\
+\end{cases}
+\end{align*}
+$$
+## Boundraries
 
+$$
+\begin{array}{c | c | c | c | c }
+    & h = 1    & h = 2  &   \\\hline
+a_h & -\infin  & \infin \\\hline
+    & k = 1    & k = 2  & k = 3  & k = 4 \\\hline
+b_k & -\infin  & 0      & 1      & \infin 
+\end{array}
+$$
+$$
+\begin{array}{c | c | c }
+a_h + b_{k+1} & h = 1    \\\hline
+k = 1         & -\infin  \\\hline
+k = 2         & -\infin  \\\hline
+k = 3         & \text{*} \\
+\end{array}
+$$
+$$
+\begin{array}{c | c | c }
+a_{h+1} + b_k & h = 1    \\\hline
+k = 1         & \text{*} \\\hline
+k = 2         & \infin   \\\hline
+k = 3         & \infin   \\
+\end{array}
+$$
+$$\text{*}\infin-\infin\text{ may not be defined but these will not be used anyway}$$
 
-
-
-
-
+### $U_1^2(\tau,t)$
+These are the only values for $h$ and $k$ where the integral will give a value. 
+$$
+\begin{align*}
+U^h_k(\tau, t)&=\begin{cases}
+    u(\tau - a_h)\cdot u(-\tau + a_{h+1})       & a_h + b_{k+1} \ge t\ge    a_{h+1} + b_k\\
+    u(\tau - a_h)\cdot u(-\tau + t - b_k)       & a_h + b_{k+1} \ge t\wedge a_{h+1} + b_k > t \\
+    u(\tau - t+b_{k+1})\cdot u(-\tau + a_{h+1}) & a_h + b_{k+1} < t\wedge   a_{h+1} + b_k\le t\\
+    u(\tau - t+b_{k+1})\cdot u(-\tau + t - b_k) & a_h + b_{k+1} < t <       a_{h+1} + b_k \\
+\end{cases}\\&=\begin{cases}
+    u(\tau + \infin)\cdot u(-\tau + \infin) & -\infin \ge t\ge    \infin\\
+    u(\tau + \infin)\cdot u(-\tau + t - 0)  & -\infin \ge t\wedge \infin > t \\
+    u(\tau - t+1)\cdot u(-\tau + \infin)    & -\infin < t\wedge   \infin\le t\\
+    u(\tau - t+1)\cdot u(-\tau + t - 0)     & -\infin < t <       \infin \\
+\end{cases}\\&=\begin{cases}
+    u(\tau - t+1)\cdot u(-\tau + t)     & -\infin < t <       \infin \\
+\end{cases}\\
+\end{align*}
+$$
+Unlike example 1, we do not split the fina case since, $t-1$ will always be less than $t$.
+## Convolution
+$$
+\begin{align*}
+F(t)&=f(t)*g(t)\\
+&=\int_{-\infin}^{\infin}{f(\tau)g(-\tau+t)}d\tau\\
+&=\sum_{k=1}^n\sum_{h=1}^m\int_{-\infin}^{\infin}{\Biggr[{f_h(\tau)g_k(-\tau+t)U^h_k(\tau, t)}\Biggr]d\tau}\\
+&=\int_{-\infin}^{\infin}{\Biggr[f_1(\tau)g_2(-\tau+t)U^1_2(\tau, t)\Biggr]d\tau}\\
+&=\int_{-\infin}^{\infin}{\Biggr[f_1(\tau)g_2(-\tau+t)u(\tau - t+1)u(-\tau + t)\Biggr]d\tau}\\
+&=\int_{t-1}^{t}{\Biggr[(-\tau+t)\sin(\tau)\Biggr]d\tau}\\
+&={(-\tau+t)(-\cos(\tau))}\Biggr|_{t-1}^{t}-\int_{t-1}^{t}{\Biggr[-(-\cos(\tau))\Biggr]d\tau}\\
+&={(\tau-t)\cos(\tau)}\Biggr|_{t-1}^{t}-\int_{t-1}^{t}{\cos(\tau)d\tau}\\
+&=(t-t)\cos(t) - (t-1-t)\cos(t-1)-{\sin(\tau)}\Biggr|_{t-1}^{t}\\
+&=\cos(t-1)-\sin(t)+\sin(t-1)\\
+\end{align*}
+$$
 
 
 
