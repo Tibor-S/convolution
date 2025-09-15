@@ -280,7 +280,7 @@ g(-\tau+t)&=\begin{cases}
 $$
 ## Boundraries
 
-When calculating the integral we look at every combination of $h$ and $k$ and multiply $f_h$ with $g_k$. Notice however that some values of $h$ and $k$ will yield a constant $0$, implying that the integral will be zero as well. In the following tables I have included all values of $h$ and $k$ but I will not do every $U_k^h$. For situations where boundraries including infinity look in the appendix.
+When calculating the integral we look at every combination of $h$ and $k$ and multiply $f_h$ with $g_k$. Notice however that some values of $h$ and $k$ will yield a constant $0$, implying that the integral will be zero as well. In the following tables I have included all values of $h$ and $k$ but I will not do every $U_k^h$. For situations where boundraries include infinity look in the appendix.
 
 $$
 \begin{array}{c | c | c | c | c }
